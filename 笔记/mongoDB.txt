@@ -1,0 +1,14 @@
+mysql、MongoDB、redis
+1 数据库
+    持久化数据、数据库有效管理
+2 安装必要的软件
+    数据库软件mongodb
+    数据库可视化操作软件 Robo3T/compass
+3 基本概念
+    database mongodb 软件可以创建多个数据库
+    collection 集合 一组数据
+    document 文档 一条数据 json
+    field 字段 文档属性
+
+4 批量导入数据
+mongoimport -d myproject -c students --file e:\vscode_workspace\nodejs\day09_mongodb\student.json

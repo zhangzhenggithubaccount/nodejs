@@ -1,0 +1,43 @@
+客户端
+服务器端 处理数据和业务逻辑
+
+          请求
+客户端 ----------> 服务器端
+      <---------- 
+          响应
+
+ip地址/域名 http://www.baidu.com
+端口
+URL http://www.baidu.com
+    https://www.baidu.com/index.html
+
+本地ip 127.0.0.1 本地域名 localhost
+
+请求头(request header) 请求报文
+
+一、HTTP状态码
+    1 消息
+    2 成功
+        200 ok请求成功
+    3 重定向
+    4 请求错误
+        400 客户端请求有语法错误
+        404 请求资源不存在
+    5 服务器错误
+        服务器错误
+二、内容类型
+    text/html
+    text/css
+    text/javascript
+    image/jpeg
+    application/json
+
+三、HTTP请求处理与响应处理
+1 请求参数
+    get请求参数
+        http://localhost:7788/?username=admin&pwd=123456
+        参数会放置在浏览器地址栏中，可以借用url模块parse处理
+    get请求 1 浏览器直接输入网址 2 link 3 script 4 img 5 form表单
+
+    post请求 1 参数被放到请求体中进行传输 2 node处理post请求需要使用data和end事件
+             3 使用querystring模块解析query
