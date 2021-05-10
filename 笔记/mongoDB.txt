@@ -12,3 +12,5 @@ mysql、MongoDB、redis
 
 4 批量导入数据
 mongoimport -d myproject -c students --file e:\vscode_workspace\nodejs\day09_mongodb\student.json
+
+await <-> async 是一对的
