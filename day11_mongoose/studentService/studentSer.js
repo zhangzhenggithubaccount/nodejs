@@ -8,8 +8,9 @@ let server = http.createServer();
 
 server.on('request', async (req, res) => {
     let {pathname, query} = url.parse(req.url, true);
-
+    
     if(req.method === 'GET') {
+        //console.log(pathname);
         if(pathname === '/list') {
             let students = await Student.find();
             let listStr = `
@@ -41,8 +42,8 @@ server.on('request', async (req, res) => {
                         <td>${item.hobbies}</td>
                         <td>${item.tel}</td>
                         <td>
-                            <a href="" class="btn btn-danger btn-xs">删除</a>
-                            <a href="" class="btn btn-success btn-xs">修改</a>
+                            <a href="/delete?_id=${item._id}" class="btn btn-danger btn-xs">删除</a>
+                            <a href="/update?_id=${item._id}" class="btn btn-success btn-xs">修改</a>
                         </td>
                     </tr>
                 `;
@@ -57,7 +58,6 @@ server.on('request', async (req, res) => {
                 'content-type': 'text/html;charset=utf8'
             });
             res.end(listStr);
-            return;
         }else if(pathname === '/add') {
             let addStr = `
             <!DOCTYPE html>
@@ -115,8 +115,79 @@ server.on('request', async (req, res) => {
             </body>
             </html>`;
             res.end(addStr);
-            return;
+        }else if(pathname === '/delete') {
+            console.log(query);
+            let stu = await Student.findOneAndDelete(query);
+            console.log(stu);
+            res.writeHead(301, {
+                Location: '/list'
+            });
+            res.end();
+        }else if(pathname === '/update') {
+            let stu = await Student.findOne(query);
+            let updateStr = `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <title>修改学生</title>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+            </head>
+            <body>
+                <div class="container">
+                    <h3>修改学生</h3>
+                    <form method="POST" active="/update?_id="${stu._id}">
+                        <div class="form-group">
+                            <label>学生姓名</label>
+                            <input type="text" name="name" class="form-control" placeholder="请填写学生姓名" value="${stu.name}">
+                        </div>
+                        <div class="form-group">
+                            <label>年龄</label>
+                            <input type="text" name="age" class="form-control" placeholder="请输入年龄" value="${stu.age}">
+                        </div>
+                        <div class="form-group">
+                            <label>电话</label>
+                            <input type="text" name="tel" class="form-control" placeholder="请填写邮箱" value="${stu.tel}">
+                        </div>
+                        <div class="form-group">
+                            <label>请爱好</label>
+                            <div>
+                                <label class="checkbox-inline">
+                              <input type="checkbox" name="hobbies" value="羽毛球"> 羽毛球
+                            </label>
+                                <label class="checkbox-inline">
+                              <input type="checkbox" name="hobbies" value="网球"> 网球
+                            </label>
+                                <label class="checkbox-inline">
+                              <input type="checkbox" name="hobbies" value="高尔夫球"> 高尔夫球
+                            </label>
+                                <label class="checkbox-inline">
+                              <input type="checkbox" name="hobbies" value="足球"> 足球
+                            </label>
+                                <label class="checkbox-inline">
+                              <input type="checkbox" name="hobbies" value="排球"> 排球
+                            </label>
+                                <label class="checkbox-inline">
+                              <input type="checkbox" name="hobbies" value="手球"> 手球
+                            </label>
+                                <label class="checkbox-inline">
+                              <input type="checkbox" name="hobbies" value="篮球"> 篮球
+                            </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">修改用户</button>
+                    </form>
+                </div>
+            </body>
+            </html>`;
+            stu.hobbies.forEach(item => {
+                updateStr = updateStr.replace(`value="${item}"`, `checked value="${item}"`);
+            });
+            res.end(updateStr);
+        }else {
+            res.end(`${pathname}, ${query.username}`);
         }
+        return;
     }else if(req.method === 'POST'){
         if(pathname === '/add') {
             let queryStr = '';
@@ -132,10 +203,24 @@ server.on('request', async (req, res) => {
                 });
                 res.end();
             });
+        }else if(pathname === '/update') {
+            let queryStr = '';
+            req.on('data', chunk => {
+                queryStr += chunk;
+            });
+            req.on('end', async () => {
+                let queryObject = qs.parse(queryStr);
+                // console.log(queryObject);
+                await Student.updateOne({_id: query._id}, queryObject);
+                res.writeHead(301, {
+                    Location: '/list'
+                })
+                res.end();
+            });
         }
         return;
     }
-    res.end(`${pathname}, ${query.username}`);
+    
 
 });
 
