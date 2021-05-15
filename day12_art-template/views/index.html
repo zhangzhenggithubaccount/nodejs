@@ -10,6 +10,27 @@
 
     <h1>{{Student.name}}</h1>
     <h1>{{Student.age}}</h1>
-    
+
+    {{if flag}}
+        <table>
+            {{each students}}
+            <tr>
+                <td>{{$value.name}}</td>
+                <td>{{$value.age}}</td>
+            </tr>
+            {{/each}}
+        </table>
+    {{/if}}
+
+    <% if(flag) { %>
+        <table>
+            <% for(let i = 0; i < students.length; i++) { %>
+                <tr>
+                    <td><%= students[i].name%></td>
+                    <td><%= students[i].age%></td>
+                </tr>
+            <% } %>
+        </table>
+    <% } %>
 </body>
 </html>

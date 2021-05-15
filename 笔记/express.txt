@@ -1,0 +1,13 @@
+express
+简介
+    web开发框架
+下载
+    npm install express
+中间件
+    中间件方法和请求处理函数
+    app.get('请求路径','处理函数')
+    app.post('请求路径','处理函数')
+处理get请求参数
+    req.query
+处理post请求参数
+    req.body -> body-parser
