@@ -5,6 +5,7 @@ const news = require('./route/news');
 const app = express();
 const port = 8888;
 
+//绑定路由
 app.use('/home', home);
 app.use('/news', news);
 

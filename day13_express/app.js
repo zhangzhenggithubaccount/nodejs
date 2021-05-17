@@ -5,6 +5,7 @@ const port = 8888;
 
 // 创建网站服务器
 const app = express();
+
 //可以定义多个中间件,
 // app.get('/', (req, res, next) => {
 //     console.log(1);
