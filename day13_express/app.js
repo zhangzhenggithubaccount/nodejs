@@ -25,6 +25,11 @@ app.post('/list', (req, res) => {
     res.send(req.body);
 });
 
+app.post('/list', (req, res) => {
+    console.log(req.body);
+    res.send(req.body);
+});
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);

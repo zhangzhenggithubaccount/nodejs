@@ -12,6 +12,10 @@ app.use('/home', home);
 app.use('/news', news);
 
 //restful风格
+
+app.use('/home', home);
+app.use('/news', news);
+
 app.get('/user/:1', (req, res) => {
     res.send(req.params);
 });
