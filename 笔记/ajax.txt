@@ -1,0 +1,8 @@
+ajax(Asynchronous Javascript And XML)
+XML
+json
+    浏览器--------服务器
+    浏览器--------ajax--------服务器
+
+    ajax 实现页面无刷新跟新数据
+    注意：ajax运行在网络环境下

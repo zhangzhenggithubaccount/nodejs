@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" name="account" id="account"><br />
+    <input type="password" name="password" id="password"><br />
+    <input type="submit" id="submit" value="submit">
+
+    <script>
+
+        let account = document.querySelector('#account');
+        let password = document.querySelector('#password');
+        let submit = document.querySelector('#submit');
+        submit.addEventListener('click', () => {
+            let xhr = new XMLHttpRequest();
+            let url = 'http://localhost:8888/login';
+            let params = `account=${account.value}&password=${password.value}`;
+            xhr.open('post', url);
+            //xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            //xhr.send(JSON.stringify({'account': account.value, 'password': account.password}));
+            xhr.send(params);
+            xhr.onload = () => {
+                console.log(xhr.responseText);
+            }
+        });
+
+    </script>
+</body>
+
+</html>
